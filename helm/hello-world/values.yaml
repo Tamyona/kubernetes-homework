@@ -1,37 +1,34 @@
-app_name: nginx
-app2_name: nginx2
+deployment:
+  name1: nginx-deployment
+  image1:
+    repository: "gcr.io/google-samples"
+    name: "hello-app"
+    tag: "1.0"
+  port1: 8080
+  replicas1: 3
+  name2: nginx-deployment2
+  image2:
+    repository: "gcr.io/google-samples"
+    name: "hello-app"
+    tag: "2.0"
+  port2: 8080
+  replicas2: 3
 
-deploy1_name: nginx-deployment
-deploy1_image:
-  repository: "gcr.io/google-samples"
-  name: "hello-app"
-  tag: "1.0"
-deploy1_port: 8080
-deploy1_replicas: 3
-
-
-deploy2_name: nginx-deployment2
-deploy2_image:
-  repository: "gcr.io/google-samples"
-  name: "hello-app"
-  tag: "2.0"
-deploy2_port: 8080
-deploy2_replicas: 3
-
-
-
-service1_name: my-service
-service1_port: 80
+app:
+  name1: nginx
+  name2: nginx2
 
 
-service_protocol: TCP
+service:
+  name1: my-service
+  port1: 80
+  name2: my-service2
+  port2: 80
+  protocol: TCP
 
 
-service2_name: my-service2
-service2_port: 80
-
-
-ingress_name: minimal-ingress
-ingress_path1: /
-ingress_path2: /hello
-ingress_path_type: Prefix
+ingress:
+  name: minimal-ingress
+  path1: /
+  path2: /hello
+  path_type: Prefix
