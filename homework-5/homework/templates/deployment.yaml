@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.deployment.name }}
+  labels:
+    app: nginx
+spec:
+  replicas: {{ .Values.deployment.replicas }}
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      volumes:							# attach as many volumes as needed
+      - name: task-pv-storage			# name of the volume
+        persistentVolumeClaim: 			# path to the pvc
+          claimName: {{ .Values.pvc.name }}		# name from pvc.yaml
+      containers:
+      - name: nginx
+        image: {{ .Values.deployment.image.repository }}:{{ .Values.deployment.image.tag }}
+        ports:
+        - containerPort: {{ .Values.deployment.port }}
+        volumeMounts:
+        - name: task-pv-storage					# claim this volume(above)
+          mountPath: {{ .Values.deployment.mount_path}}		# path in the pod
